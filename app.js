@@ -1,16 +1,16 @@
-var http = require('http'),
-  path = require('path'),
-  {
-    exec
-  } = require('child_process')
+var express = require('express');
+var app = express();
+var path = require('path')
+var { exec } = require('child_process')
 
 const PORT = 3344,
-      PATH = path.resolve(__dirname, '../')
+      project = 'travis_demo'
 
-var app = http.createServer((req, res) => {
-  if (req.url.search(/ci\/?$/i) > 0) {
-
-    var cmd = `cd ${PATH} && git reset --hard && git pull && pm2 restart app`
+app.get('/CI', (req, res, next) => {
+  // if (false) {
+    let PATH = path.resolve(__dirname, '../' + project)
+    var cmd = `cd ${PATH} && git reset --hard && git pull && pm2 restart ${project}`
+    // var cmd = `cd ${PATH} && mkdir fuck`
 
     exec(cmd, (err, stdout, stderr) => {
       if (err) {
@@ -18,18 +18,14 @@ var app = http.createServer((req, res) => {
         res.end('Server Internal Error.')
         throw err
       }
-      console.log(`stdout: ${stdout}`)
-      console.log(`stderr: ${stderr}`)
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
       res.writeHead(200)
-      res.end('option is complate!')
-    })
-
-  } else {
-    res.writeHead(404)
-    res.end('this page is not find.')
-  }
+      res.end('this is good~')
+    })        
+  // }
 })
 
 app.listen(PORT, () => {
-  console.log('this app running at port:' + PORT)
-})
+  console.log('this app is running at port:' + PORT)
+})                      
