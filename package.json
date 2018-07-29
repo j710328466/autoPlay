@@ -1,0 +1,20 @@
+{
+  "name": "autoPlay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/j710328466/autoPlay.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/j710328466/autoPlay/issues"
+  },
+  "homepage": "https://github.com/j710328466/autoPlay#readme"
+}
