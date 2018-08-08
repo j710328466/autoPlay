@@ -1,31 +1,38 @@
-var express = require('express');
-var app = express();
+var express = require('express')
+var bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser')
+var logger = require('morgan')
 var path = require('path')
-var { exec } = require('child_process')
 
-const PORT = 3344,
-      project = 'travis_demo'
+var routes = require('./routes')
 
-app.get('/CI', (req, res, next) => {
-  // if (false) {
-    let PATH = path.resolve(__dirname, '../' + project)
-    var cmd = `cd ${PATH} && git reset --hard && git pull && pm2 restart ${project}`
-    // var cmd = `cd ${PATH} && mkdir fuck`
+var app = express()
 
-    exec(cmd, (err, stdout, stderr) => {
-      if (err) {
-        res.writeHead(500)
-        res.end('Server Internal Error.')
-        throw err
-      }
-      console.log(`stdout: ${stdout}`);
-      console.log(`stderr: ${stderr}`);
-      res.writeHead(200)
-      res.end('this is good~')
-    })        
-  // }
-})
+const PORT = 3344
+
+app.all('*', function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  res.header("X-Powered-By", ' 3.2.1')
+  //这段仅仅为了方便返回json而已
+  if (req.method == 'OPTIONS') {
+    //让options请求快速返回
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
+
+// 对传递的 body 内容解析
+app.use(logger('dev'))
+app.use(bodyParser.json({ limit: '20mb' }));
+app.use(bodyParser.urlencoded({ limit: '20mb', extended: true }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));  
+
+app.use('/', routes);
 
 app.listen(PORT, () => {
   console.log('this app is running at port:' + PORT)
-})                      
+})
