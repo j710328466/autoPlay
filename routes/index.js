@@ -8,11 +8,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/afterE', (req, res, next) => {
-  console.log(req.body)
-  var project = 'share_after'
+  var project = 'share-2018.8'
   let PATH = path.resolve(__dirname, '../' + project)
 
-  var cmd = `cd ${PATH} && git reset --hard && git pull && pm2 restart ${project}`
+  var cmd = `cd ${PATH} && git reset --hard && git pull && cd ./server && cnpm i && pm2 restart ${project}`
 
   exec(cmd, (err, stdout, stderr) => {
     if (err) {
@@ -23,7 +22,7 @@ router.post('/afterE', (req, res, next) => {
     let mes = {
       "msgtype": "text",
       "text": {
-        "content": `${req.body.ref}构建成功👀`
+        "content": `${req.body.ref}分支构建成功咯~👀`
       // },
       // "at": {
       //   "atMobiles": [
@@ -32,7 +31,7 @@ router.post('/afterE', (req, res, next) => {
       //   "isAtAll": false
       }
     }
-    fetch('https://oapi.dingtalk.com/robot/send?access_token=48f7a75411f28e0b1e745496b335fe8cda5740472f4d387eb6f7cbe0e74f5866', {
+    fetch('https://oapi.dingtalk.com/robot/send?access_token=bc943195149e341d3989836ce8f2eacf75c3aef774ea0ad8510f2030a0cea534', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
