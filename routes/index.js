@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/afterE', (req, res, next) => {
   var project = 'share-2018.8'
-  let PATH = path.resolve(__dirname, '../' + project)
+  let PATH = path.resolve(__dirname, '../../' + project)
 
   var cmd = `cd ${PATH} && git reset --hard && git pull && cd ./server && cnpm i && pm2 restart ${project}`
 
