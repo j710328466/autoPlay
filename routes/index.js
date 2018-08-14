@@ -32,7 +32,7 @@ router.post('/afterE', (req, res, next) => {
       //   "isAtAll": false
       }
     }
-    fetch('https://oapi.dingtalk.com/robot/send?access_token=bc943195149e341d3989836ce8f2eacf75c3aef774ea0ad8510f2030a0cea534', {
+    fetch('https://oapi.dingtalk.com/robot/send?access_token=72cbd7cd838a6666d8678ecbad970010ce18ad1c80fb65514741e7f6b88912d7', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
