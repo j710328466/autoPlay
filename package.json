@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "bin": "./my-cli.js",
   "scripts": {
-    "start": "node app.js",
-    "commit": "npx git-cz"
+    "start": "node my-cli.js",
+    "commit": "npx git-cz",
+    "git": "git cz"
   },
   "repository": {
     "type": "git",
@@ -23,7 +25,9 @@
   },
   "devDependencies": {
     "commitizen": "^3.0.5",
+    "company-commit": "^1.1.1",
     "cookie-parser": "^1.4.3",
+    "cz-conventional-changelog": "^2.1.0",
     "morgan": "^1.9.0",
     "node-fetch": "^2.2.0"
   }
